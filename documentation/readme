@@ -1,0 +1,31 @@
+# WIKILAN
+
+## Introduction
+
+WIKILAN is a project designed to help students access books offline. The books are downloadable over wifi, making it a convenient solution for students who may not always have access to the internet.
+
+## Features
+
+- **Offline Access:** Once downloaded, the books can be accessed anytime, anywhere without the need for an internet connection.
+- **Wide Range of Books:** WIKILAN offers a wide range of books covering various subjects and topics.
+- **Easy to Use:** The user-friendly interface makes it easy for students to download and read books.
+
+## How to Use
+
+1. Connect your device to a wifi network.
+2. Open the WIKILAN application.
+3. Browse through the available books and select the ones you want to download.
+4. Click on the 'Download' button to start the download.
+5. Once downloaded, you can access the books from the 'My Books' section even when you are offline.
+
+## Future Plans
+
+We plan to continuously update our book collection and add new features to make the application even more user-friendly.
+
+## Contributing
+
+We welcome contributions from everyone. If you have any ideas or suggestions, feel free to open an issue or submit a pull request.
+
+## License
+
+WIKILAN is licensed under the [MIT License](LICENSE).

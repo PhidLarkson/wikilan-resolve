@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% comment %} adding a thread message {% endcomment %}
+{% block content %}
+    {% if request.user %}
+        <h1>Thread</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add</button>
+        </form>
+    {% else %}
+        <h1>Thread</h1>
+        <p>You must be logged in to add a thread message.</p>
+    {% endif %}
+    
+{% endblock %}

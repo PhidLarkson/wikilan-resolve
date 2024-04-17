@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Welcome to the Homepage!</h1>
+    <p>This is the homepage of your Django application.</p>
+    <p>Click on the links above to navigate through the website.</p>
+    <p>Enjoy!</p>
+    <hr>
+    <a href="{% url 'add_book' %}">+Add book</a>
+    <br><br>
+    <h2>Books</h2><hr>
+    <ul>
+        {% for book in books %}
+            <h5>{{ book.title }}</h5>
+            <hr>
+            {% if book.cover %}
+            <img src="{{ book.cover.url }}" alt="{{ book.title }}" style="width: 100px; height: 100px;">
+            {% endif %}
+            <br><br>
+            <a href="{% url 'show_book' book.id %}">Show Book</a>
+
+            <a href="{% url 'download_book' book.id %}" download>Download Book</a>
+            <br><br>
+        {% endfor %}
+{% endblock %}

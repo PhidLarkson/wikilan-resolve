@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ book.title }}</h1>
+    <p>Author: {{ book.author }}</p>
+    <p>Publication Date: {{ book.publication_date }}</p>
+    <p>ISBN: {{ book.isbn }}</p>
+    <p>Description: {{ book.description }}</p>
+    <a href="{% url 'download_book' book.id %}" download>Download Book</a>
+    {% comment %} <a href="{% url 'update_book' book.id %}">Edit Book</a>
+    <a href="{% url 'delete_book' book.id %}">Delete Book</a>
+    <a href="{% url 'books' %}">Back to Books</a> {% endcomment %}
+{% endblock %}

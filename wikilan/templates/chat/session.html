@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat session</title>
+</head>
+{% block content %}
+
+<body>
+    <div class="relative pb-10">
+        <div class="lg:p-20 text-center">
+          <h1 class="mx-auto rounded-full p-3 font-mono text-white bg-slate-800 m-3 ">{{session}} Chat session</h1>
+        </div>
+        
+        <div class="mx-4 pb-5 backdrop-blur-sm">
+          <div id="chat-messages" class="chat-messages space-y-2 flex flex-col object-fill" id="chat-messages">
+            {% for message in messages%}
+            <hr>
+            <div class="mx-auto text-sm shadow-lg max-w-md my-auto px-10 py-1 bg-slate-500 border-solid border-1 border-slate-200 flex flex-col object-fill" style="width: 300px; object-fit: contain; word-wrap: break-word; border-radius: 5px;">
+              <p class="font-bold text-xs bg-slate-600 p-1 font-mono">{{message.sender}}</p>
+              <p>{{message.content}}</p>
+            </div>
+            <hr>
+            {% endfor %}
+          </div>
+        </div>
+    <div class="lg:w-2/4 mx-4 mb-10 lg:mx-auto p-1 bg-slate-900 rounded-full fixed bottom-10 left-0 right-0 opacity-80 text-black">
+        <form method="post" class="flex">
+          {% csrf_token %}
+          <input type="text" name="content" class="flex-1 rounded-l-full mr-3 px-5" placeholder="Your message..." id="message-input">
+      
+          <input type="submit" name="submit" id="send-button" class="send-button flex-1 rounded-l-full mr-3 px-5" id="message-input">
+
+        </form>
+      </div>
+    {% comment %} {{ session_name|json_script:"session-name" }} {% endcomment %}
+    <script>
+        {% comment %} const sessionName = JSON.parse(document.getElementById('session-name').textContent); {% endcomment %}
+        
+        const sessionId = "{{ session_id }}";
+        const user = "{{ user }}"
+        const chatSocket = new WebSocket(
+        `ws://${window.location.host}/ws/session/${sessionId}/`
+    );
+      
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            const message = data.message;
+            const sender = data.sender;
+            
+            if (message) {
+              let html = '<div class="mx-auto text-sm shadow-lg max-w-md my-auto px-10 py-1 bg-slate-500 border-solid border-1 border-slate-200 flex flex-col object-fill" style="width: 300px; object-fit: contain; word-wrap: break-word; border-radius: 5px;">';
+                  html += '<p class="font-semibold">' + sender + '</p>';
+                  html += '<p>' + message + '</p></div>';
+      
+                document.querySelector('#chat-messages').innerHTML += html;
+            } else {
+              alert('The message was empty')
+            }
+          };
+
+
+          chatSocket.onclose = function (e) {
+            console.log('closed');
+          }
+      
+          document.querySelector('#send-button').onclick = function (e) {
+            e.preventDefault();
+            const messageInput = document.querySelector('#message-input');
+            const message = messageInput.value;
+            chatSocket.send(JSON.stringify({
+              'message': message,
+              'sender': user,
+              'session': sessionId,
+            }));
+            messageInput.value = '';
+            return false;
+          };
+        </script>
+</body>
+{% endblock %}
+</html>

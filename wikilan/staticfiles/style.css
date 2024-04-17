@@ -1,0 +1,11 @@
+body{
+    background-color: rgb(199, 255, 255);
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.6;
+}
+
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}

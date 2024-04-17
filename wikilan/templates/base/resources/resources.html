@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            {% for resource in resources %}
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ resource.image }}" class="card-img-top" alt="{{ resource.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ resource.name }}</h5>
+                        <p class="card-text">{{ resource.description }}</p>
+                        <a href="{{ resource.link }}" class="btn btn-primary">Go to resource</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

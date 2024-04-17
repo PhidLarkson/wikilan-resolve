@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+
+{% block title %} Lobby | {% endblock %}
+hi
+{% block content %}
+hi
+<nav class="bg-slate-800 opacity-100 content-center shadow-lg text-white">
+       
+    <div class="mobile-menu hidden md:hidden">
+        <a href="" class="block py-2 px-4 text-sm hover:bg-gray-200" >Sessions</a>
+        <a href="start" class="block py-2 px-4 text-sm hover:bg-gray-200" >Create Session</a>
+        <a href="add_thread" class="block py-2 px-4 text-sm hover:bg-gray-200" >Add Thread</a>
+        {% comment %} <a href="/logout" class="block py-2 px-4 text-sm hover:bg-gray-200">Logout</a> {% endcomment %}
+    </div>
+</nav>
+<main class="flex flex-col justify-center">
+    <div
+        class="w-full mx-auto opacity-95 bg-slate-700  p-1 space-y-3 ">
+        <form method="get" action="{% url 'search' %}">
+            <div class="flex flex-row space-x-1 place-content-center">
+
+                <input class="border-black rounded-full px-10 py-1 m-1" type="text"
+                    name="q" placeholder="Search session..." required>
+                <div>
+                    <button
+                        class="w-full p-0 rounded-full bg-slate-950 text-white"
+                        type="submit">
+                        <svg width="35px" height="35px"
+                            viewBox="-12 -12 48.00 48.00" fill="none"
+                            xmlns="http://www.w3.org/2000/svg"><g
+                                id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+                                id="SVGRepo_tracerCarrier"
+                                stroke-linecap="round" stroke-linejoin="round"></g><g
+                                id="SVGRepo_iconCarrier"> <path
+                                    d="M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
+                                    stroke="#ffffff" stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"></path> </g></svg>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+        <div class="w-full flex flex-col max-w-md p-1">
+            {%for thread in threads%}
+            {%if request.user%}
+            <a href={% url 'thread' thread.id %}>
+                <div class="w-full mx-1 py-1 drop-shadow-lg ">
+                    <div                       
+                        class="p-4 bg-slate-400 shadow rounded-xl opacity-90"><p>~{{thread.user}}</p>
+                        <p>{{thread.content}}</p>
+
+                    </div>
+                </div></a>
+            {%else%}
+            {% comment %} <h1 class="font-mono">You have not created any sessions yet</h1> {% endcomment %}
+            {%endif%}
+            {%endfor%}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+Reply as {{ request.user }}
+{% if request.user %}
+<form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+<div class="w-full flex flex-col max-w-md p-1">
+    {%for reply in replies%}
+        <div class="w-full mx-1 py-1 drop-shadow-lg ">
+            <div                       
+                class="p-4 bg-slate-400 shadow rounded-xl opacity-90"><p>~{{reply.user}}</p>
+                <p>{{reply.content}}</p>
+
+            </div>
+        </div>
+    {%endfor%}
+{% else %}
+    <p>Log in to reply</p>
+{% endif %}
+</div>
+{% endblock %}
