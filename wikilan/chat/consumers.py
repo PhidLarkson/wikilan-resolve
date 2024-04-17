@@ -20,8 +20,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'sender': 'users'
         }))
 
-    async def disconnect(self):
-        await self.channel_layer.group_discard(self.session_group, self.channel_name)
+    async def disconnect(self, close_code):
+        try:            
+            await self.channel_layer.group_discard(self.session_group, self.channel_name)
+            self.send(text_data=json.dumps({
+                'type': 'chat',
+                'message': 'Disconnected from session',
+                'sender': 'users'
+            }))
+            
+        except Exception | ValueError | TypeError as e:
+            return e
 
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
