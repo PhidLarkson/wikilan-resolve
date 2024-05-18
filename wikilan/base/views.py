@@ -106,7 +106,7 @@ def add_book(request):
             
             book = form.save(commit=False)  
             book.room_operator=request.user        
-            book.save('uploads/')
+            book.save()
             form.save_m2m()
             return redirect('home')
         else:
